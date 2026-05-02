@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+  :root {
+    --cream: #FAF7F2;
+    --ink: #1A1410;
+    --ink2: #3D3530;
+    --ink3: #7A6E68;
+    --gold: #C8962A;
+    --gold-light: #F5E6C8;
+    --rust: #B84C2A;
+    --sage: #4A6741;
+    --white: #FFFFFF;
+    --border: rgba(26,20,16,0.12);
+    --border2: rgba(26,20,16,0.06);
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --radius: 2px;
+    --radius-lg: 4px;
+  }
+  body {
+    font-family: var(--sans);
+    background: #ffffff;
+    color: #111111;
+    min-height: 100vh;
+  }
