@@ -7,6 +7,8 @@ import Home from "./Components/Home/Home.jsx";
 import AllArts from "./Components/AllArts/AllArts.jsx";
 import Requirement from "./Components/Requrement/Requirement.jsx";
 import Profile from "./Components/Profile/Profile.jsx";
+import SignUp from "./Components/SignUp/SignUp.jsx";
+import LogIn from "./Components/LogIn/LogIn.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,9 +32,17 @@ const router = createBrowserRouter([
         Component: AllArts,
       },
       {
-        path:"profile",
-        Component: Profile
-      }
+        path: "profile",
+        Component: Profile,
+      },
+      {
+        path: "sign-up",
+        Component: SignUp,
+      },
+      {
+        path: "login",
+        Component: LogIn,
+      },
     ],
   },
 ]);
