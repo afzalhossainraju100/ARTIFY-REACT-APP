@@ -23,3 +23,21 @@
     color: #111111;
     min-height: 100vh;
   }
+
+  @keyframes artist-marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .artist-marquee {
+    animation: artist-marquee 24s linear infinite;
+  }
+
+  .artist-marquee:hover {
+    animation-play-state: paused;
+  }

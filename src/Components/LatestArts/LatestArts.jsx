@@ -1,10 +1,8 @@
-import React from 'react';
+import React from "react";
 
-const LatestArts = ({ latestArtsPromise }) => {
-  console.log(latestArtsPromise);
-  return <div>
-    latest arts
-    </div>;
+const LatestArts = ({ latestArts }) => {
+  console.log(latestArts);
+  return <div>latest arts</div>;
 };
 
 export default LatestArts;

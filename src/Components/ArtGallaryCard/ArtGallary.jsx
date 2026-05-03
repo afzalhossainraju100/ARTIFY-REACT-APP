@@ -1,7 +1,7 @@
 import React from 'react';
 
-const ArtGallary = ({ artistPromise }) => {
-    console.log(artistPromise);
+const ArtGallary = ({ userPromise }) => {
+    console.log(userPromise);
   return <div></div>;
 };
 

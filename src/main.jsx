@@ -21,9 +21,13 @@ const router = createBrowserRouter([
         Component: AllArts,
       },
       {
-        path:"requirement",
+        path: "requirement",
         Component: Requirement,
-      }
+      },
+      {
+        path: "allarts",
+        Component: AllArts,
+      },
     ],
   },
 ]);
