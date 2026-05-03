@@ -119,10 +119,6 @@ const AllArts = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setVisibleCount(INITIAL_VISIBLE_ARTS);
-  }, [sortBy]);
-
   const sortedArts = useMemo(() => sortArts(arts, sortBy), [arts, sortBy]);
   const visibleArts = sortedArts.slice(0, visibleCount);
   const canLoadMore = visibleCount < sortedArts.length;
@@ -131,6 +127,11 @@ const AllArts = () => {
     setVisibleCount((currentCount) =>
       Math.min(currentCount * 2, sortedArts.length),
     );
+  };
+
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+    setVisibleCount(INITIAL_VISIBLE_ARTS);
   };
 
   return (
@@ -145,7 +146,7 @@ const AllArts = () => {
             <span>Sort by</span>
             <select
               value={sortBy}
-              onChange={(event) => setSortBy(event.target.value)}
+              onChange={handleSortChange}
               className="h-9 border border-[#d8cec2] bg-white px-3 text-sm text-[#140f0c] outline-none"
             >
               <option value="relevant">Most Relevant</option>

@@ -6,6 +6,7 @@ import RootLayout from "./Layout/RootLayout.jsx";
 import Home from "./Components/Home/Home.jsx";
 import AllArts from "./Components/AllArts/AllArts.jsx";
 import Requirement from "./Components/Requrement/Requirement.jsx";
+import Profile from "./Components/Profile/Profile.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: "allarts",
         Component: AllArts,
       },
+      {
+        path:"profile",
+        Component: Profile
+      }
     ],
   },
 ]);

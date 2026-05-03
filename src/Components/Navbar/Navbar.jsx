@@ -7,7 +7,7 @@ const navLinks = [
   { to: "/login", label: "Login", icon: "🔑" },
   { to: "/sign-up", label: "Sign Up", icon: "⚡" },
   { to: "/requirement", label: "About", icon: "ℹ" },
-  { to: "/profile", label: "Artist Profile", icon: "👤" },
+  { to: "/profile", label: "Profile", icon: "👤" },
 ];
 
 const Navbar = () => {
