@@ -15,6 +15,7 @@ import PaymentPage from "./Components/PaymentPage/PaymentPage.jsx";
 import ArtBooking from "./Components/ArtBooking/ArtBooking.jsx";
 import RequireAuth from "./Components/RouteGuards/RequireAuth.jsx";
 import AuthProvider from "./Context/AuthProvider.jsx";
+import { ArtGalleryCard } from "./Components/ArtGallaryCard/ArtGallary.jsx";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,14 @@ const router = createBrowserRouter([
         element: (
           <RequireAuth>
             <ArtBooking />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "art-gallary",
+        element: (
+          <RequireAuth>
+            <ArtGalleryCard />
           </RequireAuth>
         ),
       },

@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { NavLink } from "react-router-dom";
 
 const getInitials = (name = "Artist") =>
   name
@@ -35,9 +36,11 @@ const ArtistCard = ({ artist }) => {
         <p className="mt-1 truncate text-sm text-[#bfb3a8]">
           {artist?.specialties?.[0] || artist?.skills?.[0] || "Artist"}
         </p>
-        <button className="mt-3 border border-[#d4a43a] px-4 py-2 text-xs font-semibold tracking-wide text-[#f2b342] transition-colors hover:bg-[#d4a43a] hover:text-black">
-          VIEW PROFILE
-        </button>
+        <NavLink to="art-gallary">
+          <button className="mt-3 border border-[#d4a43a] px-4 py-2 text-xs font-semibold tracking-wide text-[#f2b342] transition-colors hover:bg-[#d4a43a] hover:text-black">
+            VIEW PROFILE
+          </button>
+        </NavLink>
       </div>
     </div>
   );
