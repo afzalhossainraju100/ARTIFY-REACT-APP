@@ -1,17 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, use } from "react";
 import { NavLink } from "react-router-dom";
-
-const navLinks = [
-  { to: "/", label: "Home", icon: "🏠" },
-  { to: "/all-arts", label: "Explore", icon: "🔲" },
-  { to: "/login", label: "Login", icon: "🔑" },
-  { to: "/sign-up", label: "Sign Up", icon: "⚡" },
-  { to: "/requirement", label: "About", icon: "ℹ" },
-  { to: "/profile", label: "Profile", icon: "👤" },
-];
+import { AuthContext } from "../../Context/AuthContext";
 
 const Navbar = () => {
+  const authContext = use(AuthContext);
+  const user = authContext?.user;
+  const profile = authContext?.profile;
+  const role = authContext?.role;
+  const isArtist = authContext?.isArtist;
+  const logout = authContext?.logout;
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // ===== DYNAMIC NAVBAR LINKS =====
+  const baseLinks = user
+    ? [
+        { to: "/", label: "Home", icon: "🏠" },
+        { to: "/all-arts", label: "Explore", icon: "🔲" },
+        { to: "/requirement", label: "About", icon: "ℹ" },
+      ]
+    : [{ to: "/", label: "Home", icon: "🏠" }];
+
+  const authLinks = user
+    ? [
+        {
+          to: "/profile",
+          label: isArtist ? "Artist Profile" : "Customer Profile",
+          icon: "👤",
+        },
+        {
+          to: "/art-booking",
+          label: isArtist ? "Artist Orders" : "My Orders",
+          icon: "📦",
+        },
+      ]
+    : [
+        { to: "/login", label: "Login", icon: "🔑" },
+        { to: "/sign-up", label: "Sign Up", icon: "⚡" },
+      ];
+
+  const navLinks = [...baseLinks, ...authLinks];
+
+  // ===== LOGOUT HANDLER =====
+  const handleLogout = async () => {
+    try {
+      if (logout) {
+        await logout();
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   const desktopLinkClassName = ({ isActive }) =>
     [
@@ -39,6 +78,12 @@ const Navbar = () => {
             <span className="text-white">ART</span>
             <span className="text-amber-400">IFY</span>
           </h1>
+          {user && profile?.name && (
+            <span className="ml-3 hidden rounded-full border border-amber-500/30 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-amber-200 sm:inline-flex">
+              {profile.name}
+              {role ? ` · ${role}` : ""}
+            </span>
+          )}
         </div>
 
         <div className="hidden flex-1 items-center justify-center xl:flex">
@@ -55,10 +100,15 @@ const Navbar = () => {
         </div>
 
         <div className="hidden shrink-0 xl:flex">
-          <button className="inline-flex items-center gap-1.5 rounded-md border border-red-800/60 px-3 py-2 text-[11px] font-medium tracking-wide whitespace-nowrap text-red-400 transition-all duration-200 hover:border-red-500 hover:bg-red-500/10">
-            <span className="text-[11px]">⏻</span>
-            Logout
-          </button>
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center gap-1.5 rounded-md border border-red-800/60 px-3 py-2 text-[11px] font-medium tracking-wide whitespace-nowrap text-red-400 transition-all duration-200 hover:border-red-500 hover:bg-red-500/10"
+            >
+              <span className="text-[11px]">⏻</span>
+              Logout
+            </button>
+          )}
         </div>
 
         <div className="flex items-center gap-2 xl:hidden">
@@ -160,10 +210,15 @@ const Navbar = () => {
             </ul>
 
             <div className="mt-6 border-t border-[#2a2a2a] pt-4">
-              <button className="flex w-full items-center justify-center gap-1.5 rounded-md border border-red-800/60 px-3 py-3 text-sm font-medium tracking-wide text-red-400 transition-all duration-200 hover:border-red-500 hover:bg-red-500/10">
-                <span>⏻</span>
-                Logout
-              </button>
+              {user && (
+                <button
+                  onClick={handleLogout}
+                  className="flex w-full items-center justify-center gap-1.5 rounded-md border border-red-800/60 px-3 py-3 text-sm font-medium tracking-wide text-red-400 transition-all duration-200 hover:border-red-500 hover:bg-red-500/10"
+                >
+                  <span>⏻</span>
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         </aside>

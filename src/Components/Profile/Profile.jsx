@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
 import AdminProfile from "./AdminProfile.jsx";
 import ArtistProfile from "./ArtistProfile.jsx";
 import CustomerProfile from "./CustomerProfile.jsx";
@@ -26,11 +27,19 @@ const findProfileUser = (users, searchParams) => {
 
 const Profile = () => {
   const [searchParams] = useSearchParams();
+  const authContext = React.use(AuthContext);
+  const authUser = authContext?.profile || authContext?.user;
+  const authRole = authContext?.role || authUser?.role;
+  const loading = authContext?.loading;
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (authUser) {
+      setUsers([authUser]);
+      return;
+    }
+
     let mounted = true;
 
     fetch("http://localhost:3000/users")
@@ -51,17 +60,19 @@ const Profile = () => {
         setUsers([]);
       })
       .finally(() => {
-        if (mounted) setLoading(false);
+        if (mounted) {
+          setUsers((currentUsers) => currentUsers);
+        }
       });
 
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [authUser]);
 
   const profileUser = useMemo(
-    () => findProfileUser(users, searchParams),
-    [users, searchParams],
+    () => authUser || findProfileUser(users, searchParams),
+    [authUser, users, searchParams],
   );
 
   if (loading) {
@@ -88,11 +99,11 @@ const Profile = () => {
     );
   }
 
-  if (profileUser.role === "artist") {
+  if (authRole === "artist" || profileUser.role === "artist") {
     return <ArtistProfile user={profileUser} />;
   }
 
-  if (profileUser.role === "admin") {
+  if (authRole === "admin" || profileUser.role === "admin") {
     return <AdminProfile user={profileUser} />;
   }
 

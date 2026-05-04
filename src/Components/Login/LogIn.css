@@ -1,0 +1,158 @@
+/* ========== FONTS ========== */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Josefin+Sans:wght@200;300;400;600&display=swap");
+
+/* ========== FONT CLASSES ========== */
+.font-josefin {
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.font-cormorant {
+  font-family: "Cormorant Garamond", serif;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes alOrb {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(18px, -18px) scale(1.1);
+  }
+}
+
+@keyframes alFadeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes alFadeRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes alFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== ORB ANIMATIONS ========== */
+.al-orb-1 {
+  animation: alOrb 9s ease-in-out infinite alternate;
+  animation-delay: 0s;
+}
+
+.al-orb-2 {
+  animation: alOrb 7s ease-in-out infinite alternate-reverse;
+  animation-delay: 0s;
+}
+
+.al-orb-3 {
+  animation: alOrb 11s ease-in-out infinite alternate;
+  animation-delay: 0s;
+}
+
+/* ========== FADE-IN ANIMATIONS ========== */
+.animate-alFadeLeft {
+  animation: alFadeLeft 0.8s ease both;
+}
+
+.animate-alFadeRight {
+  animation: alFadeRight 0.9s ease both;
+}
+
+.animate-alFadeUp {
+  animation: alFadeUp 1s ease 0.3s both;
+}
+
+/* ========== RESPONSIVE TWEAKS ========== */
+@media (max-width: 768px) {
+  .al-form-side {
+    padding: 3rem 2rem;
+  }
+
+  .al-quote-side {
+    min-height: 320px;
+  }
+
+  .al-quote-content {
+    padding: 2.25rem 1.75rem;
+  }
+
+  .al-q-brand {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .al-q-text {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .al-form-side {
+    padding: 2rem 1.5rem;
+  }
+
+  .al-quote-content {
+    padding: 1.5rem 1rem;
+  }
+}
+
+/* ========== GLOBAL RESETS ========== */
+* {
+  box-sizing: border-box;
+}
+
+/* ========== UTILITY CLASSES ========== */
+.al-form-side,
+.al-quote-side {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== FOCUS STATES ========== */
+input:focus,
+button:focus {
+  outline: none;
+}
+
+/* ========== DISABLED STATES ========== */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ========== SMOOTH TRANSITIONS ========== */
+input,
+button,
+a {
+  transition-property: color, background-color, border-color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+  .al-form-side,
+  .al-quote-side {
+    break-inside: avoid;
+  }
+}

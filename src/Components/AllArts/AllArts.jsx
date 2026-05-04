@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const INITIAL_VISIBLE_ARTS = 8;
 
@@ -9,7 +10,9 @@ const getArtistName = (art) =>
   art?.user?.name || art?.artistName || art?.artist || "Unknown Artist";
 
 const getDateValue = (art) =>
-  new Date(art?.uploadedDate || art?.createdAt || art?.updatedAt || 0).getTime();
+  new Date(
+    art?.uploadedDate || art?.createdAt || art?.updatedAt || 0,
+  ).getTime();
 
 const getPopularityValue = (art) =>
   art?.salesCount ||
@@ -32,11 +35,15 @@ const sortArts = (arts, sortBy) => {
   }
 
   if (sortBy === "price-low") {
-    return sortableArts.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
+    return sortableArts.sort(
+      (a, b) => (a.price ?? Infinity) - (b.price ?? Infinity),
+    );
   }
 
   if (sortBy === "price-high") {
-    return sortableArts.sort((a, b) => (b.price ?? -Infinity) - (a.price ?? -Infinity));
+    return sortableArts.sort(
+      (a, b) => (b.price ?? -Infinity) - (a.price ?? -Infinity),
+    );
   }
 
   if (sortBy === "popular") {
@@ -48,11 +55,14 @@ const sortArts = (arts, sortBy) => {
   return sortableArts;
 };
 
-const ArtCard = ({ art }) => {
+const ArtCard = ({ art, onCardClick }) => {
   const image = getArtImage(art);
 
   return (
-    <article className="group bg-white">
+    <article
+      className="group bg-white cursor-pointer transition-transform hover:shadow-lg"
+      onClick={() => onCardClick(art._id || art.id)}
+    >
       <div
         className="relative h-[260px] overflow-hidden bg-gradient-to-br from-[#422765] via-[#7d5181] to-[#d4a43a] bg-cover bg-center sm:h-[300px] lg:h-[320px]"
         style={image ? { backgroundImage: `url("${image}")` } : undefined}
@@ -61,6 +71,7 @@ const ArtCard = ({ art }) => {
           type="button"
           className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm text-[#1a1410] shadow-sm transition-colors hover:bg-[#f2b342]"
           aria-label={`Save ${art?.title || "artwork"}`}
+          onClick={(e) => e.stopPropagation()}
         >
           ♡
         </button>
@@ -87,10 +98,15 @@ const ArtCard = ({ art }) => {
 };
 
 const AllArts = () => {
+  const navigate = useNavigate();
   const [arts, setArts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("relevant");
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_ARTS);
+
+  const handleArtCardClick = (artId) => {
+    navigate(`/art-details/${artId}`);
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -175,7 +191,11 @@ const AllArts = () => {
           <>
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {visibleArts.map((art) => (
-                <ArtCard key={art?._id || art?.id || art?.title} art={art} />
+                <ArtCard
+                  key={art?._id || art?.id || art?.title}
+                  art={art}
+                  onCardClick={handleArtCardClick}
+                />
               ))}
             </div>
 
